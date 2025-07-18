@@ -21,15 +21,6 @@
             --c-accent-secondary: #3498db;
         }
 
-        html.dark {
-            --c-bg: #1a202c;
-            --c-surface: #2d3748;
-            --c-text-primary: #e2e8f0;
-            --c-text-secondary: #a0aec0;
-            --c-accent: #4299e1;
-            --c-accent-secondary: #63b3ed;
-        }
-
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--c-bg);
@@ -89,10 +80,6 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        html.dark #auth-modal input, html.dark #checkout-modal input, html.dark #checkout-modal textarea {
-            border-color: #4a5568; /* A darker border for dark mode */
-        }
-
         #auth-modal input:focus, #checkout-modal input:focus, #checkout-modal textarea:focus {
             border-color: var(--c-accent);
             outline: none;
@@ -131,17 +118,15 @@
                 <div class="flex items-center gap-4">
                     <!-- Auth Status -->
                     <div id="auth-container">
-                        <button id="login-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">تسجيل الدخول</button>
+                        <button id="login-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 transition">تسجيل الدخول</button>
                         <div id="user-info" class="hidden items-center gap-4">
                             <span id="user-email" class="text-sm text-[var(--c-text-secondary)] hidden md:block"></span>
-                            <button id="my-orders-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">طلباتي</button>
-                            <button id="logout-btn" class="px-4 py-2 font-semibold text-red-500 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/50 transition">خروج</button>
+                            <button id="my-orders-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 transition">طلباتي</button>
+                            <button id="logout-btn" class="px-4 py-2 font-semibold text-red-500 rounded-lg hover:bg-red-100 transition">خروج</button>
                         </div>
                     </div>
 
-                   
-
-                    <button id="cart-button" class="relative p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <button id="cart-button" class="relative p-2 rounded-full hover:bg-gray-200 transition">
                         <svg class="h-7 w-7 text-[var(--c-text-primary)]" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </button>
@@ -155,10 +140,10 @@
             </div>
         </div>
         <div id="mobile-menu" class="md:hidden hidden bg-[var(--c-surface)] border-t">
-            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-page="home">الرئيسية</a>
-            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-page="contactors">كونتاكتورات</a>
-            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-page="relays">ريليهات حرارية</a>
-            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-700" data-page="breakers">قواطع كهربائية</a>
+            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100" data-page="home">الرئيسية</a>
+            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100" data-page="contactors">كونتاكتورات</a>
+            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100" data-page="relays">ريليهات حرارية</a>
+            <a href="#" class="block nav-link text-right py-3 px-4 text-sm hover:bg-gray-100" data-page="breakers">قواطع كهربائية</a>
         </div>
     </header>
 
@@ -204,9 +189,9 @@
     <!-- Modals -->
     <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
         <div class="bg-[var(--c-surface)] rounded-lg shadow-2xl w-full max-w-lg mx-4">
-            <div class="flex justify-between items-center p-5 border-b border-gray-200 dark:border-gray-700"><h3 class="text-2xl font-bold text-[var(--c-text-primary)]">سلة المشتريات</h3><button id="close-cart-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div>
+            <div class="flex justify-between items-center p-5 border-b border-gray-200"><h3 class="text-2xl font-bold text-[var(--c-text-primary)]">سلة المشتريات</h3><button id="close-cart-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div>
             <div id="cart-items-container" class="p-5 max-h-96 overflow-y-auto"></div>
-            <div class="p-5 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-b-lg">
+            <div class="p-5 border-t border-gray-200 bg-gray-50 rounded-b-lg">
                 <div class="flex justify-between items-center mb-4"><span class="text-xl font-bold text-[var(--c-text-primary)]">الإجمالي:</span><span id="cart-total" class="text-2xl font-bold text-[var(--c-accent)]">0 جنيه</span></div>
                 <button id="checkout-btn" class="w-full text-white font-bold py-3 rounded-lg transition disabled:bg-gray-400">إتمام الشراء</button>
             </div>
@@ -219,7 +204,7 @@
                 <h2 id="auth-title" class="text-2xl font-bold text-[var(--c-text-primary)]">تسجيل الدخول</h2>
                 <button id="close-auth-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
             </div>
-            <div id="auth-error" class="hidden text-red-500 text-center mb-4 p-2 bg-red-100 dark:bg-red-900/20 rounded"></div>
+            <div id="auth-error" class="hidden text-red-500 text-center mb-4 p-2 bg-red-100 rounded"></div>
             <!-- Login Form -->
             <form id="login-form">
                 <div class="mb-4"><label for="login-email" class="block mb-2">البريد الإلكتروني</label><input type="email" id="login-email" class="w-full p-2 border rounded" required></div>
@@ -354,9 +339,6 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const categoryPagesContainer = document.getElementById('category-pages');
         const productDetailContainer = document.getElementById('product-detail-container');
-        const themeToggleButton = document.getElementById('theme-toggle');
-        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
         
         // Auth UI Elements
         const authContainer = document.getElementById('auth-container');
@@ -458,7 +440,7 @@
                         </div>
                     </div>
                     <!-- Suggestions -->
-                    <div class="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+                    <div class="mt-16 pt-8 border-t border-gray-200">
                         <h3 class="text-2xl font-bold mb-6 text-[var(--c-text-primary)]">منتجات مشابهة</h3>
                         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                             ${relatedProducts.map(([id, _]) => createProductCard(id)).join('')}
@@ -564,7 +546,7 @@
                 checkoutBtn.disabled = false;
                 cart.forEach(item => {
                     const product = products[item.id];
-                    cartItemsContainer.innerHTML += `<div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700"><div class="flex-grow"><p class="font-semibold text-[var(--c-text-primary)]">${product.name}</p><p class="text-sm text-[var(--c-text-secondary)]">${product.price} جنيه</p></div><div class="flex items-center space-x-reverse space-x-3"><div class="flex items-center border rounded-md border-gray-300 dark:border-gray-600"><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="-1">-</button><span class="px-3">${item.quantity}</span><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="1">+</button></div><button class="remove-from-cart text-red-500 hover:text-red-700" data-id="${item.id}"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"></path></svg></button></div></div>`;
+                    cartItemsContainer.innerHTML += `<div class="flex justify-between items-center py-3 border-b border-gray-200"><div class="flex-grow"><p class="font-semibold text-[var(--c-text-primary)]">${product.name}</p><p class="text-sm text-[var(--c-text-secondary)]">${product.price} جنيه</p></div><div class="flex items-center space-x-reverse space-x-3"><div class="flex items-center border rounded-md border-gray-300"><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="-1">-</button><span class="px-3">${item.quantity}</span><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="1">+</button></div><button class="remove-from-cart text-red-500 hover:text-red-700" data-id="${item.id}"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"></path></svg></button></div></div>`;
                 });
             }
         };
@@ -785,27 +767,6 @@
             orderConfirmationModal.classList.add('hidden');
         });
 
-
-        // --- THEME TOGGLE LOGIC ---
-        const applyTheme = (theme) => {
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-                themeToggleLightIcon.classList.remove('hidden');
-                themeToggleDarkIcon.classList.add('hidden');
-            } else {
-                document.documentElement.classList.remove('dark');
-                themeToggleLightIcon.classList.add('hidden');
-                themeToggleDarkIcon.classList.remove('hidden');
-            }
-        };
-
-        themeToggleButton.addEventListener('click', () => {
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
-        });
-
         // --- EVENT LISTENERS ---
         document.body.addEventListener('click', e => {
             const navLink = e.target.closest('.nav-link');
@@ -855,10 +816,6 @@
         });
 
         // --- INITIALIZATION ---
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
-        
         renderHomePage();
         renderCategoryPage('contactors', '⚡️ كونتاكتورات LS الكورية');
         renderCategoryPage('relays', '🛡️ ريليهات حرارية LS الكورية');
