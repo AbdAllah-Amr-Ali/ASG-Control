@@ -24,7 +24,29 @@ This project is a single-page e-commerce website for "ASG Control," a fictional 
 
 For the website to function correctly with all images, you must create the following folder structure in the same directory as the `index.html` file:
 
-/ASG Control Website/|-- index.html|-- Maroon Mobile Gadgets and Electronics Shop Business Logo (2).jpg|-- /كونتاكتورات LS/|   |-- mc-9b.jpg|   |-- mc-12b.jpg|   |-- mc-18b.jpg|   |-- mc-32a.jpg|   |-- mc-50a.jpg|   |-- mc-85a.jpg|   |-- mc-150a.jpg|   |-- mc-225a.jpg||-- /ريليه حراري 3 فاز من LS/|   |-- mt-32.jpg|   |-- mt-63.jpg|   |-- mt-95.jpg||-- /LS قواطع كهربائية/|   |-- abn103c.jpg|   |-- abn203c.jpg|   |-- abn403c.jpg|   |-- abn803c.jpg
+/ASG Control Website/
+|-- index.html
+|-- Maroon Mobile Gadgets and Electronics Shop Business Logo (2).jpg
+|-- /كونتاكتورات LS/
+|   |-- mc-9b.jpg
+|   |-- mc-12b.jpg
+|   |-- mc-18b.jpg
+|   |-- mc-32a.jpg
+|   |-- mc-50a.jpg
+|   |-- mc-85a.jpg
+|   |-- mc-150a.jpg
+|   |-- mc-225a.jpg
+|
+|-- /ريليه حراري 3 فاز من LS/
+|   |-- mt-32.jpg
+|   |-- mt-63.jpg
+|   |-- mt-95.jpg
+|
+|-- /LS قواطع كهربائية/
+|   |-- abn103c.jpg
+|   |-- abn203c.jpg
+|   |-- abn403c.jpg
+|   |-- abn803c.jpg
 **Note:** The image names must be exactly as listed above (in lowercase) for the website to find and display them.
 
 ## Technologies Used
