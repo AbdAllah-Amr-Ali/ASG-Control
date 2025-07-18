@@ -47,7 +47,6 @@ For the website to function correctly with all images, you must create the follo
 |   |-- abn203c.jpg
 |   |-- abn403c.jpg
 |   |-- abn803c.jpg
-**Note:** The image names must be exactly as listed above (in lowercase) for the website to find and display them.
 
 ## Technologies Used
 
