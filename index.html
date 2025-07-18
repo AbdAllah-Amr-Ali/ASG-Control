@@ -37,7 +37,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .nav-link.active {
+        .nav-link.active, #my-orders-btn.active {
             color: var(--c-accent);
             border-bottom: 2px solid var(--c-accent);
             font-weight: 700;
@@ -80,6 +80,33 @@
          #checkout-btn:hover {
             background-color: #218838;
         }
+
+        /* Styles for auth and checkout modal inputs */
+        #auth-modal input, #checkout-modal input, #checkout-modal textarea {
+            background-color: var(--c-bg);
+            border-color: #cbd5e1; /* A neutral border color */
+            color: var(--c-text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        html.dark #auth-modal input, html.dark #checkout-modal input, html.dark #checkout-modal textarea {
+            border-color: #4a5568; /* A darker border for dark mode */
+        }
+
+        #auth-modal input:focus, #checkout-modal input:focus, #checkout-modal textarea:focus {
+            border-color: var(--c-accent);
+            outline: none;
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--c-accent) 30%, transparent);
+        }
+        
+        .product-details ul {
+            list-style: disc;
+            padding-right: 1.5rem;
+            margin-top: 1rem;
+        }
+        .product-details li {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -90,7 +117,7 @@
             <div class="flex items-center justify-between h-24">
                 <div class="flex items-center">
                      <a href="#" class="nav-link" data-page="home">
-                        <img src="Maroon Mobile Gadgets and Electronics Shop Business Logo (2).jpg" alt="ASG Control Logo" class="h-20">
+                        <img src="logo.png" alt="ASG Control Logo" class="h-20">
                      </a>
                 </div>
                 
@@ -102,6 +129,16 @@
                 </nav>
                 
                 <div class="flex items-center gap-4">
+                    <!-- Auth Status -->
+                    <div id="auth-container">
+                        <button id="login-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">تسجيل الدخول</button>
+                        <div id="user-info" class="hidden items-center gap-4">
+                            <span id="user-email" class="text-sm text-[var(--c-text-secondary)] hidden md:block"></span>
+                            <button id="my-orders-btn" class="px-4 py-2 font-semibold text-[var(--c-text-primary)] rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition">طلباتي</button>
+                            <button id="logout-btn" class="px-4 py-2 font-semibold text-red-500 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/50 transition">خروج</button>
+                        </div>
+                    </div>
+
                     <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
                         <svg id="theme-toggle-dark-icon" class="hidden h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                         <svg id="theme-toggle-light-icon" class="hidden h-6 w-6 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -137,6 +174,7 @@
             <section id="contactors-page" class="page"></section>
             <section id="relays-page" class="page"></section>
             <section id="breakers-page" class="page"></section>
+            <section id="orders-page" class="page"></section>
         </div>
 
         <!-- PRODUCT DETAIL PAGE CONTAINER -->
@@ -149,12 +187,24 @@
     <!-- Footer -->
     <footer class="border-t mt-12">
         <div class="container mx-auto py-8 px-4 text-center bg-[var(--c-text-primary)] text-[var(--c-surface)]">
+             <div class="flex justify-center items-center space-x-4 mb-4">
+                <a href="https://www.facebook.com/profile.php?id=61578303782343" target="_blank" rel="noopener noreferrer" class="text-[var(--c-surface)] hover:text-blue-400 transition-colors duration-300">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                    </svg>
+                </a>
+                <a href="https://wa.me/201050116390" target="_blank" rel="noopener noreferrer" class="text-[var(--c-surface)] hover:text-green-400 transition-colors duration-300">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.77 3.06 1.23 4.79 1.23h.01c5.46 0 9.91-4.45 9.91-9.91s-4.45-9.91-9.91-9.91zM17.5 14.3c-.28-.14-1.65-.82-1.9-.91-.25-.09-.44-.14-.62.14-.18.28-.72.91-.88 1.1-.16.18-.32.2-.59.07-.28-.14-1.17-.43-2.23-1.38-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.37-.02-.51-.07-.14-.62-1.5-1.85-2.08-.22-.09-.46-.1-.69-.1-.22 0-.46 0-.69.05-.22.05-.59.22-.88.58-.3.37-.91 1.05-.91 2.56 0 1.51.94 2.96 1.07 3.14.13.18 1.82 2.81 4.4 3.9.59.24 1.05.38 1.41.48.59.16 1.13.14 1.55.09.46-.07 1.41-.58 1.61-1.13.2-.55.2-1.02.14-1.13-.07-.11-.25-.18-.52-.32z"/>
+                    </svg>
+                </a>
+            </div>
             <p>&copy; 2024 ASG Control. كل الحقوق محفوظة.</p>
-           
+            <p>تصميم وتطوير بواسطة Gemini</p>
         </div>
     </footer>
     
-    <!-- Shopping Cart Modal -->
+    <!-- Modals -->
     <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
         <div class="bg-[var(--c-surface)] rounded-lg shadow-2xl w-full max-w-lg mx-4">
             <div class="flex justify-between items-center p-5 border-b border-gray-200 dark:border-gray-700"><h3 class="text-2xl font-bold text-[var(--c-text-primary)]">سلة المشتريات</h3><button id="close-cart-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button></div>
@@ -166,12 +216,111 @@
         </div>
     </div>
 
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
+        <div class="bg-[var(--c-surface)] rounded-lg shadow-2xl w-full max-w-md mx-4 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="auth-title" class="text-2xl font-bold text-[var(--c-text-primary)]">تسجيل الدخول</h2>
+                <button id="close-auth-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <div id="auth-error" class="hidden text-red-500 text-center mb-4 p-2 bg-red-100 dark:bg-red-900/20 rounded"></div>
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="mb-4"><label for="login-email" class="block mb-2">البريد الإلكتروني</label><input type="email" id="login-email" class="w-full p-2 border rounded" required></div>
+                <div class="mb-6"><label for="login-password" class="block mb-2">كلمة المرور</label><input type="password" id="login-password" class="w-full p-2 border rounded" required></div>
+                <button type="submit" class="w-full bg-[var(--c-accent)] text-white font-bold py-3 rounded-lg hover:bg-[var(--c-accent-secondary)] transition">دخول</button>
+            </form>
+            <!-- Signup Form -->
+            <form id="signup-form" class="hidden">
+                <div class="mb-4"><label for="signup-email" class="block mb-2">البريد الإلكتروني</label><input type="email" id="signup-email" class="w-full p-2 border rounded" required></div>
+                <div class="mb-4"><label for="signup-password" class="block mb-2">كلمة المرور</label><input type="password" id="signup-password" class="w-full p-2 border rounded" required></div>
+                <button type="submit" class="w-full bg-[var(--c-accent)] text-white font-bold py-3 rounded-lg hover:bg-[var(--c-accent-secondary)] transition">إنشاء حساب</button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="#" id="toggle-auth-mode" class="text-[var(--c-accent)] hover:underline">ليس لديك حساب؟ أنشئ واحداً</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
+        <div class="bg-[var(--c-surface)] rounded-lg shadow-2xl w-full max-w-lg mx-4 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-[var(--c-text-primary)]">معلومات الشحن والدفع</h2>
+                <button id="close-checkout-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <form id="checkout-form">
+                <div class="mb-4">
+                    <label for="checkout-name" class="block mb-2">الاسم بالكامل</label>
+                    <input type="text" id="checkout-name" class="w-full p-2 border rounded" required>
+                </div>
+                <div class="mb-4">
+                    <label for="checkout-address" class="block mb-2">العنوان بالتفصيل</label>
+                    <textarea id="checkout-address" class="w-full p-2 border rounded" rows="3" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="checkout-phone" class="block mb-2">رقم الهاتف</label>
+                    <input type="tel" id="checkout-phone" class="w-full p-2 border rounded" required>
+                </div>
+                <!-- Payment Method -->
+                <div class="mb-6">
+                    <label class="block mb-2">طريقة الدفع</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:border-[var(--c-accent)]">
+                            <input type="radio" name="paymentMethod" value="prepaid" class="ml-3" required>
+                            <div>
+                                <p class="font-semibold">الدفع المسبق (فودافون/اتصالات كاش)</p>
+                                <p class="text-sm text-[var(--c-text-secondary)]">سيتم دفع المبلغ كاملاً مقدمًا.</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:border-[var(--c-accent)]">
+                            <input type="radio" name="paymentMethod" value="cod" class="ml-3" required>
+                            <div>
+                                <p class="font-semibold">الدفع عند الاستلام</p>
+                                <p class="text-sm text-[var(--c-text-secondary)]">سيتم دفع مصاريف الشحن (50 جنيه) فقط مقدمًا.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition">تأكيد الطلب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-confirmation-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
+        <div class="bg-[var(--c-surface)] rounded-lg shadow-2xl w-full max-w-lg mx-4 p-8 text-center">
+            <h2 class="text-2xl font-bold text-[var(--c-text-primary)] mb-4">تم استلام طلبك بنجاح!</h2>
+            <p id="order-confirmation-message" class="text-[var(--c-text-secondary)] mb-6"></p>
+            <button id="close-confirmation-modal-btn" class="w-full bg-[var(--c-accent)] text-white font-bold py-3 rounded-lg hover:bg-[var(--c-accent-secondary)] transition">حسناً</button>
+        </div>
+    </div>
+
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
 
     <script>
+    // --- IMPORTANT: For production, use Vercel Environment Variables instead of hardcoding these keys. ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyBgvcqvsY9XoSXVC4TrB0YkUDBfLR26pq0",
+        authDomain: "asg-control-store-cb0b8.firebaseapp.com",
+        projectId: "asg-control-store-cb0b8",
+        storageBucket: "asg-control-store-cb0b8.firebasestorage.app",
+        messagingSenderId: "233708170637",
+        appId: "1:233708170637:web:bd96e7276a1d23bb05a1c4",
+        measurementId: "G-XVYTT16SW7"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
     document.addEventListener('DOMContentLoaded', () => {
         // --- DATABASE ---
         const products = {
-            // Contactors
             'mc-9b': { name: 'MC-9b – 9 أمبير', price: 490, category: 'contactors', img: './كونتاكتورات LS/mc-9b.jpg', details: '<ul><li><strong>التيار:</strong> 9 أمبير</li><li><strong>الموديل:</strong> MC-9b</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> مثالي لتشغيل المحركات الصغيرة والتحكم في دوائر الإضاءة.</li></ul>' },
             'mc-12b': { name: 'MC-12b – 12 أمبير', price: 510, category: 'contactors', img: './كونتاكتورات LS/mc-12b.jpg', details: '<ul><li><strong>التيار:</strong> 12 أمبير</li><li><strong>الموديل:</strong> MC-12b</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> يوفر تشغيلًا مستقرًا وموثوقًا للمحركات والدوائر الصناعية.</li></ul>' },
             'mc-18b': { name: 'MC-18b – 18 أمبير', price: 565, category: 'contactors', img: './كونتاكتورات LS/mc-18b.jpg', details: '<ul><li><strong>التيار:</strong> 18 أمبير</li><li><strong>الموديل:</strong> MC-18b</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> صناعة كورية أصلية تضمن أعلى مستويات الجودة والكفاءة.</li></ul>' },
@@ -180,12 +329,10 @@
             'mc-85a': { name: 'MC-85a – 85 أمبير', price: 1525, category: 'contactors', img: './كونتاكتورات LS/mc-85a.jpg', details: '<ul><li><strong>التيار:</strong> 85 أمبير</li><li><strong>الموديل:</strong> MC-85a</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> مصمم للأحمال الصناعية الثقيلة التي تتطلب قدرة تحمل عالية.</li></ul>' },
             'mc-150a': { name: 'MC-150a – 150 أمبير', price: 3100, category: 'contactors', img: './كونتاكتورات LS/mc-150a.jpg', details: '<ul><li><strong>التيار:</strong> 150 أمبير</li><li><strong>الموديل:</strong> MC-150a</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> قدرة تحمل فائقة للتحكم في المحركات الكبيرة والأنظمة الصناعية المعقدة.</li></ul>' },
             'mc-225a': { name: 'MC-225a – 225 أمبير', price: 4200, category: 'contactors', img: './كونتاكتورات LS/mc-225a.jpg', details: '<ul><li><strong>التيار:</strong> 225 أمبير</li><li><strong>الموديل:</strong> MC-225a</li><li><strong>الجهد:</strong> 220/380 فولت</li><li><strong>النوع:</strong> 3 فاز</li><li><strong>الوصف:</strong> الخيار الأمثل للتطبيقات الصناعية فائقة التحمل.</li></ul>' },
-            // Relays
             'mt-32-low': { name: 'ريليه حراري MT-32', price: 575, category: 'relays', img: './ريليه حراري 3 فاز من LS/mt-32.jpg', details: '<ul><li><strong>مدى التيار:</strong> 0.63 إلى 22 أمبير</li><li><strong>الموديل:</strong> MT-32</li><li><strong>النوع:</strong> 3 فاز - شوكة</li><li><strong>الوصف:</strong> حماية دقيقة للمحركات من الأحمال الزائدة، مناسب للأحمال الصغيرة.</li></ul>' },
             'mt-32-high': { name: 'ريليه حراري MT-32 (تيار أعلى)', price: 625, category: 'relays', img: './ريليه حراري 3 فاز من LS/mt-32.jpg', details: '<ul><li><strong>مدى التيار:</strong> 18 إلى 40 أمبير</li><li><strong>الموديل:</strong> MT-32</li><li><strong>النوع:</strong> 3 فاز - شوكة</li><li><strong>الوصف:</strong> حماية موثوقة للتطبيقات التي تتطلب تيارًا أعلى بنفس الموديل.</li></ul>' },
             'mt-63': { name: 'ريليه حراري MT-63', price: 895, category: 'relays', img: './ريليه حراري 3 فاز من LS/mt-63.jpg', details: '<ul><li><strong>مدى التيار:</strong> 28 إلى 65 أمبير</li><li><strong>الموديل:</strong> MT-63</li><li><strong>النوع:</strong> 3 فاز - شوكة</li><li><strong>الوصف:</strong> مثالي لحماية المحركات الصناعية المتوسطة.</li></ul>' },
             'mt-95': { name: 'ريليه حراري MT-95', price: 1100, category: 'relays', img: './ريليه حراري 3 فاز من LS/mt-95.jpg', details: '<ul><li><strong>مدى التيار:</strong> 54 إلى 95 أمبير</li><li><strong>الموديل:</strong> MT-95</li><li><strong>النوع:</strong> 3 فاز - شوكة</li><li><strong>الوصف:</strong> حماية احترافية للمحركات ذات الأحمال العالية.</li></ul>' },
-            // Breakers
             'abn103c-100a': { name: 'قاطع ABN103c – 100A', price: 1850, category: 'breakers', img: './LS قواطع كهربائية/abn103c.jpg', details: '<ul><li><strong>التيار:</strong> 100 أمبير</li><li><strong>الموديل:</strong> ABN103c</li><li><strong>قدرة القطع:</strong> 22KA</li><li><strong>الجهد:</strong> 380/440 فولت</li><li><strong>الوصف:</strong> حماية عالية الكفاءة للأحمال الكهربائية الصناعية.</li></ul>' },
             'abs103c-125a': { name: 'قاطع ABS103c – 125A', price: 2500, category: 'breakers', img: './LS قواطع كهربائية/abn103c.jpg', details: '<ul><li><strong>التيار:</strong> 125 أمبير</li><li><strong>الموديل:</strong> ABS103c</li><li><strong>قدرة القطع:</strong> 42KA</li><li><strong>الجهد:</strong> 380/440 فولت</li><li><strong>الوصف:</strong> كفاءة وموثوقية عالية لحماية الدوائر الكهربائية.</li></ul>' },
             'abn203c-150a': { name: 'قاطع ABN203c – 150/175/200A', price: 3100, category: 'breakers', img: './LS قواطع كهربائية/abn203c.jpg', details: '<ul><li><strong>التيار:</strong> 150A, 175A, 200A</li><li><strong>الموديل:</strong> ABN203c</li><li><strong>قدرة القطع:</strong> 30KA</li><li><strong>الجهد:</strong> 380/440 فولت</li><li><strong>الوصف:</strong> قاطع متعدد الاستخدامات يناسب مجموعة واسعة من التيارات.</li></ul>' },
@@ -213,10 +360,36 @@
         const themeToggleButton = document.getElementById('theme-toggle');
         const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        
+        // Auth UI Elements
+        const authContainer = document.getElementById('auth-container');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userInfo = document.getElementById('user-info');
+        const userEmailSpan = document.getElementById('user-email');
+        const myOrdersBtn = document.getElementById('my-orders-btn');
+        const authModal = document.getElementById('auth-modal');
+        const closeAuthModalBtn = document.getElementById('close-auth-modal-btn');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const toggleAuthModeLink = document.getElementById('toggle-auth-mode');
+        const authTitle = document.getElementById('auth-title');
+        const authError = document.getElementById('auth-error');
+
+        // Checkout UI Elements
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckoutModalBtn = document.getElementById('close-checkout-modal-btn');
+        const checkoutForm = document.getElementById('checkout-form');
+
+        // Order Confirmation UI Elements
+        const orderConfirmationModal = document.getElementById('order-confirmation-modal');
+        const orderConfirmationMessage = document.getElementById('order-confirmation-message');
+        const closeConfirmationModalBtn = document.getElementById('close-confirmation-modal-btn');
 
 
         // --- State ---
         let cart = [];
+        let currentUser = null;
 
         // --- RENDER FUNCTIONS ---
         const renderHomePage = () => {
@@ -297,13 +470,81 @@
                 </section>
             `;
         };
+        
+        const renderOrdersPage = async () => {
+            const ordersPage = document.getElementById('orders-page');
+            if (!currentUser) {
+                ordersPage.innerHTML = `<p class="text-center">يجب تسجيل الدخول لعرض طلباتك.</p>`;
+                return;
+            }
+
+            ordersPage.innerHTML = `<p class="text-center">جاري تحميل طلباتك...</p>`;
+
+            try {
+                const ordersQuery = await db.collection('orders').where('userId', '==', currentUser.uid).get();
+                if (ordersQuery.empty) {
+                    ordersPage.innerHTML = `<h2 class="text-3xl font-extrabold text-center mb-10 text-[var(--c-text-primary)]">سجل طلباتي</h2><p class="text-center">ليس لديك أي طلبات سابقة.</p>`;
+                    return;
+                }
+
+                let ordersHTML = `<h2 class="text-3xl font-extrabold text-center mb-10 text-[var(--c-text-primary)]">سجل طلباتي</h2><div class="space-y-6">`;
+                
+                ordersQuery.forEach(doc => {
+                    const order = doc.data();
+                    const orderDate = new Date(order.orderDate).toLocaleDateString('ar-EG');
+                    
+                    const statusColors = {
+                        "Pending Payment": "bg-yellow-500",
+                        "Processing": "bg-blue-500",
+                        "Shipped": "bg-green-500",
+                        "Completed": "bg-gray-500",
+                        "Cancelled": "bg-red-500"
+                    };
+                    const statusColor = statusColors[order.status] || "bg-gray-500";
+                    
+                    ordersHTML += `
+                        <div class="bg-[var(--c-surface)] rounded-lg shadow-md p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <p class="font-bold text-lg text-[var(--c-text-primary)]">رقم الطلب: ${order.orderId}</p>
+                                    <p class="text-sm">تاريخ الطلب: ${orderDate}</p>
+                                </div>
+                                <span class="text-white text-sm font-bold px-3 py-1 rounded-full ${statusColor}">${order.status}</span>
+                            </div>
+                            <div>
+                                ${order.items.map(item => `<p>${item.quantity} x ${products[item.id].name}</p>`).join('')}
+                            </div>
+                            <div class="text-left mt-4">
+                                <p class="font-bold text-lg text-[var(--c-accent)]">الإجمالي: ${order.totalPrice.toLocaleString()} جنيه</p>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                ordersHTML += `</div>`;
+                ordersPage.innerHTML = ordersHTML;
+
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+                ordersPage.innerHTML = `<p class="text-center text-red-500">حدث خطأ أثناء تحميل الطلبات.</p>`;
+            }
+        };
 
         // --- NAVIGATION ---
         const switchPage = (pageId) => {
             categoryPagesContainer.style.display = 'block';
             productDetailContainer.innerHTML = '';
             pages.forEach(p => p.classList.toggle('active', p.id === `${pageId}-page`));
-            navLinks.forEach(l => l.classList.toggle('active', l.dataset.page === pageId));
+            navLinks.forEach(l => {
+                const linkPage = l.dataset.page;
+                l.classList.toggle('active', linkPage === pageId);
+            });
+            myOrdersBtn.classList.toggle('active', 'orders' === pageId);
+
+            if (pageId === 'orders') {
+                renderOrdersPage();
+            }
+
             window.scrollTo(0, 0);
         };
         
@@ -313,22 +554,50 @@
             window.scrollTo(0, 0);
         };
 
-        // --- CART LOGIC ---
+        // --- CART LOGIC (UPDATED FOR FIREBASE) ---
         const renderCart = () => {
+             cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartTotal.textContent = `${cart.reduce((sum, item) => sum + products[item.id].price * item.quantity, 0).toLocaleString()} جنيه`;
+            
             cartItemsContainer.innerHTML = '';
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="text-center text-gray-500">سلة المشتريات فارغة.</p>';
+                cartItemsContainer.innerHTML = '<p class="text-center text-[var(--c-text-secondary)]">سلة المشتريات فارغة.</p>';
                 checkoutBtn.disabled = true;
             } else {
                 checkoutBtn.disabled = false;
                 cart.forEach(item => {
                     const product = products[item.id];
-                    cartItemsContainer.innerHTML += `
-                        <div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700"><div class="flex-grow"><p class="font-semibold text-[var(--c-text-primary)]">${product.name}</p><p class="text-sm text-[var(--c-text-secondary)]">${product.price} جنيه</p></div><div class="flex items-center space-x-reverse space-x-3"><div class="flex items-center border rounded-md border-gray-300 dark:border-gray-600"><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="-1">-</button><span class="px-3">${item.quantity}</span><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="1">+</button></div><button class="remove-from-cart text-red-500 hover:text-red-700" data-id="${item.id}"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"></path></svg></button></div></div>`;
+                    cartItemsContainer.innerHTML += `<div class="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-700"><div class="flex-grow"><p class="font-semibold text-[var(--c-text-primary)]">${product.name}</p><p class="text-sm text-[var(--c-text-secondary)]">${product.price} جنيه</p></div><div class="flex items-center space-x-reverse space-x-3"><div class="flex items-center border rounded-md border-gray-300 dark:border-gray-600"><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="-1">-</button><span class="px-3">${item.quantity}</span><button class="px-2 py-1 change-quantity" data-id="${item.id}" data-change="1">+</button></div><button class="remove-from-cart text-red-500 hover:text-red-700" data-id="${item.id}"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd"></path></svg></button></div></div>`;
                 });
             }
-            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartTotal.textContent = `${cart.reduce((sum, item) => sum + products[item.id].price * item.quantity, 0).toLocaleString()} جنيه`;
+        };
+
+        const saveCartToFirestore = async () => {
+            if (currentUser) {
+                try {
+                    const cartRef = db.collection('carts').doc(currentUser.uid);
+                    await cartRef.set({ items: cart });
+                } catch (error) {
+                    console.error("Error saving cart:", error);
+                }
+            }
+        };
+
+        const loadCartFromFirestore = async (userId) => {
+            try {
+                const cartRef = db.collection('carts').doc(userId);
+                const doc = await cartRef.get();
+                if (doc.exists) {
+                    cart = doc.data().items || [];
+                } else {
+                    cart = [];
+                }
+                renderCart();
+            } catch (error) {
+                console.error("Error loading cart:", error);
+                cart = [];
+                renderCart();
+            }
         };
 
         const addToCart = (id) => {
@@ -336,8 +605,190 @@
             if (existingItem) existingItem.quantity++;
             else cart.push({ id, quantity: 1 });
             renderCart();
+            saveCartToFirestore();
         };
         
+        const updateCartItemQuantity = (id, change) => {
+            const itemIndex = cart.findIndex(i => i.id === id);
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                renderCart();
+                saveCartToFirestore();
+            }
+        };
+        
+        const removeFromCart = (id) => {
+            cart = cart.filter(i => i.id !== id);
+            renderCart();
+            saveCartToFirestore();
+        };
+
+        // --- AUTH LOGIC ---
+        const updateUIForAuthState = (user) => {
+            currentUser = user;
+            if (user) {
+                loginBtn.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                userInfo.classList.add('flex');
+                userEmailSpan.textContent = user.email;
+                loadCartFromFirestore(user.uid);
+            } else {
+                loginBtn.classList.remove('hidden');
+                userInfo.classList.add('hidden');
+                userInfo.classList.remove('flex');
+                userEmailSpan.textContent = '';
+                cart = []; // Clear cart on logout
+                renderCart();
+            }
+        };
+
+        auth.onAuthStateChanged(user => {
+            updateUIForAuthState(user);
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = loginForm['login-email'].value;
+            const password = loginForm['login-password'].value;
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                authModal.classList.add('hidden');
+                loginForm.reset();
+                authError.classList.add('hidden');
+            } catch (error) {
+                authError.textContent = "فشل تسجيل الدخول. تأكد من البريد الإلكتروني وكلمة المرور.";
+                authError.classList.remove('hidden');
+            }
+        });
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = signupForm['signup-email'].value;
+            const password = signupForm['signup-password'].value;
+            try {
+                await auth.createUserWithEmailAndPassword(email, password);
+                authModal.classList.add('hidden');
+                signupForm.reset();
+                 authError.classList.add('hidden');
+            } catch (error) {
+                authError.textContent = "فشل إنشاء الحساب. قد يكون البريد الإلكتروني مستخدماً بالفعل.";
+                authError.classList.remove('hidden');
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut();
+            switchPage('home');
+        });
+
+        // --- MODAL UI LOGIC ---
+        loginBtn.addEventListener('click', () => authModal.classList.remove('hidden'));
+        closeAuthModalBtn.addEventListener('click', () => authModal.classList.add('hidden'));
+        authModal.addEventListener('click', e => { if (e.target === authModal) authModal.classList.add('hidden'); });
+
+        toggleAuthModeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (loginForm.classList.contains('hidden')) {
+                // Switch to Login
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                authTitle.textContent = 'تسجيل الدخول';
+                toggleAuthModeLink.textContent = 'ليس لديك حساب؟ أنشئ واحداً';
+            } else {
+                // Switch to Signup
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                authTitle.textContent = 'إنشاء حساب جديد';
+                toggleAuthModeLink.textContent = 'لديك حساب بالفعل؟ سجل الدخول';
+            }
+            authError.classList.add('hidden');
+        });
+
+        // --- CHECKOUT LOGIC ---
+        closeCheckoutModalBtn.addEventListener('click', () => checkoutModal.classList.add('hidden'));
+        checkoutModal.addEventListener('click', e => { if (e.target === checkoutModal) checkoutModal.classList.add('hidden'); });
+        
+        checkoutBtn.addEventListener('click', () => {
+            if (!currentUser) {
+                cartModal.classList.add('hidden');
+                authModal.classList.remove('hidden');
+            } else {
+                cartModal.classList.add('hidden');
+                checkoutModal.classList.remove('hidden');
+            }
+        });
+
+        checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser || cart.length === 0) return;
+
+            const orderId = `ASG-${Math.floor(100000 + Math.random() * 900000)}`;
+            const totalPrice = cart.reduce((sum, item) => sum + products[item.id].price * item.quantity, 0);
+            const paymentMethod = checkoutForm.paymentMethod.value;
+
+            const newOrder = {
+                orderId: orderId,
+                userId: currentUser.uid,
+                customerName: checkoutForm['checkout-name'].value,
+                address: checkoutForm['checkout-address'].value,
+                phone: checkoutForm['checkout-phone'].value,
+                items: cart,
+                totalPrice: totalPrice,
+                paymentMethod: paymentMethod,
+                orderDate: new Date().toISOString(),
+                status: "Pending Payment"
+            };
+
+            try {
+                await db.collection('orders').add(newOrder);
+
+                // Clear cart
+                cart = [];
+                await saveCartToFirestore();
+                renderCart();
+                checkoutForm.reset();
+                checkoutModal.classList.add('hidden');
+
+                // Show confirmation and prepare WhatsApp message
+                let confirmationText = '';
+                let whatsappMessage = `طلب جديد (رقم ${orderId})\n\n`;
+                whatsappMessage += `الاسم: ${newOrder.customerName}\n`;
+                whatsappMessage += `العنوان: ${newOrder.address}\n`;
+                whatsappMessage += `الهاتف: ${newOrder.phone}\n\n`;
+                whatsappMessage += `المنتجات:\n`;
+                newOrder.items.forEach(item => {
+                    whatsappMessage += `- ${item.quantity}x ${products[item.id].name}\n`;
+                });
+                whatsappMessage += `\nالإجمالي: ${newOrder.totalPrice.toLocaleString()} جنيه\n`;
+                
+                if (paymentMethod === 'prepaid') {
+                    confirmationText = `رقم طلبك هو ${orderId}. لإتمام الشراء، يرجى تحويل ${totalPrice.toLocaleString()} جنيه إلى رقم اتصالات/فودافون كاش 01117673355 وإرسال سكرين شوت للمعاملة على الواتساب.`;
+                    whatsappMessage += `طريقة الدفع: دفع مسبق`;
+                } else { // cod
+                    const shippingCost = 50;
+                    confirmationText = `رقم طلبك هو ${orderId}. لتأكيد الطلب، يرجى تحويل مصاريف الشحن (${shippingCost} جنيه) إلى رقم اتصالات/فودافون كاش 01117673355 وإرسال سكرين شوت للمعاملة على الواتساب. سيتم دفع باقي المبلغ (${(totalPrice).toLocaleString()} جنيه) عند الاستلام.`;
+                     whatsappMessage += `طريقة الدفع: عند الاستلام`;
+                }
+
+                orderConfirmationMessage.textContent = confirmationText;
+                orderConfirmationModal.classList.remove('hidden');
+                
+                window.open(`https://wa.me/201050116390?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+
+            } catch (error) {
+                console.error("Error placing order:", error);
+                alert("حدث خطأ أثناء تأكيد الطلب. يرجى المحاولة مرة أخرى.");
+            }
+        });
+
+        closeConfirmationModalBtn.addEventListener('click', () => {
+            orderConfirmationModal.classList.add('hidden');
+        });
+
+
         // --- THEME TOGGLE LOGIC ---
         const applyTheme = (theme) => {
             if (theme === 'dark') {
@@ -368,16 +819,27 @@
             
             const addToCartBtn = e.target.closest('.add-to-cart-btn');
             if (addToCartBtn) {
-                e.preventDefault(); e.stopPropagation();
+                e.preventDefault(); 
+                e.stopPropagation();
+                if(addToCartBtn.disabled) return;
+
                 addToCart(addToCartBtn.dataset.id);
-                const originalText = addToCartBtn.innerHTML;
-                addToCartBtn.textContent = 'تمت الإضافة!';
-                setTimeout(() => { addToCartBtn.innerHTML = originalText; }, 1500);
+                
+                const originalHTML = addToCartBtn.innerHTML;
+                addToCartBtn.innerHTML = 'تمت الإضافة!';
+                addToCartBtn.disabled = true;
+
+                setTimeout(() => { 
+                    addToCartBtn.innerHTML = originalHTML;
+                    addToCartBtn.disabled = false;
+                }, 1500);
             }
             
             const backBtn = e.target.closest('.back-to-category-btn');
             if(backBtn) { e.preventDefault(); switchPage(backBtn.dataset.category); }
         });
+        
+        myOrdersBtn.addEventListener('click', () => switchPage('orders'));
 
         mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         cartButton.addEventListener('click', () => cartModal.classList.remove('hidden'));
@@ -388,18 +850,10 @@
             const changeQtyBtn = e.target.closest('.change-quantity');
             const removeBtn = e.target.closest('.remove-from-cart');
             if (changeQtyBtn) {
-                const id = changeQtyBtn.dataset.id;
-                const change = parseInt(changeQtyBtn.dataset.change);
-                const item = cart.find(i => i.id === id);
-                if (item) {
-                    item.quantity += change;
-                    if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
-                    renderCart();
-                }
+                updateCartItemQuantity(changeQtyBtn.dataset.id, parseInt(changeQtyBtn.dataset.change));
             }
             if (removeBtn) {
-                cart = cart.filter(i => i.id !== removeBtn.dataset.id);
-                renderCart();
+                removeFromCart(removeBtn.dataset.id);
             }
         });
 
@@ -413,7 +867,6 @@
         renderCategoryPage('relays', '🛡️ ريليهات حرارية LS الكورية');
         renderCategoryPage('breakers', '🔌 قواطع كهربائية LS Metasol');
         switchPage('home');
-        renderCart();
     });
     </script>
 </body>
