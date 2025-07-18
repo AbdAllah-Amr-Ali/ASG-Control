@@ -24,6 +24,7 @@ This project is a single-page e-commerce website for "ASG Control," a fictional 
 
 For the website to function correctly with all images, you must create the following folder structure in the same directory as the `index.html` file:
 
+
 /ASG Control Website/
 |-- index.html
 |-- Maroon Mobile Gadgets and Electronics Shop Business Logo (2).jpg
@@ -47,6 +48,9 @@ For the website to function correctly with all images, you must create the follo
 |   |-- abn203c.jpg
 |   |-- abn403c.jpg
 |   |-- abn803c.jpg
+
+
+**Note:** The image names must be exactly as listed above (in lowercase) for the website to find and display them.
 
 ## Technologies Used
 
